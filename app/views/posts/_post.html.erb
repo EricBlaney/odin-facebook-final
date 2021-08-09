@@ -1,0 +1,31 @@
+<% @posts.each do |post| %>
+
+    <div> 
+    <%= gravatar_image_tag(post.user.email, :gravatar => { :size => 30 })%>
+    <strong> <i> Author: 
+     <%= link_to post.user.first_name, user_path(post.user.id) %></i> </strong>
+    </div>
+  
+    <div>
+    <div>
+       <p> <%= post.body %> </p>
+       <% if post.user == current_user %>
+        <%= link_to 'Edit', [:edit, post] %>
+        <%= link_to 'Delete', post, :method => :delete, :confirm => "Are you sure?" %>
+       <% end %>
+    </div> 
+    <div>
+        <%= render 'likes/likes', { post: post } %>
+    <div>
+        <% if post.comments.any? %>
+            <%= render 'comments/comments', { comments: find_comments(post) }%>
+        <% end %>
+    </div>
+    <div>
+        <%= render 'comments/new_comment', { post: post }%>
+    </div>
+    <br>
+    <br>
+
+    
+<% end %>

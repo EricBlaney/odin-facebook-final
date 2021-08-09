@@ -1,0 +1,5 @@
+<% comments.each do |c| %>
+<i> <strong> Comment by: 
+     <%= link_to c.user.first_name, user_path(c.user.id) %></i> </strong>
+    <div><%= c.body %></div>
+<% end %>

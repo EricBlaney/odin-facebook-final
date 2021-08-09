@@ -1,0 +1,12 @@
+<h2> <%= current_user.first_name %>'s Friend Requests </h2>  <br> <br>
+
+<% if received_requests.any? %>
+<% requests = received_requests %>
+<% requests.each do |fr| %>
+    Friend Request from:  <%= fr.first_name %> <%= fr.last_name %>  <br>
+    <%= button_to 'Accept Friend Request', friendships_path(friend_request: find_request(fr)) %>
+    <%= button_to 'Reject Friend Request', friend_request_path(find_request(fr).id), method: 'delete' %> <br>
+<% end %>
+<% else %>
+    You have no friend requests.
+<% end %>

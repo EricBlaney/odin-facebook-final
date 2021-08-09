@@ -1,0 +1,42 @@
+Welcome to the profile of: <br>
+
+<h1> <%= @user.first_name %> <%= @user.last_name %> </h1> 
+<div>
+    <%= gravatar_image_tag(@user.email, :gravatar => { :size => 100 })%>
+</div> 
+<br> <br> 
+
+<%= @user.first_name %>'s friends:
+<% @user.friends.each do |friend| %>
+
+    <div> 
+        <strong> <i> 
+        <%= link_to friend.first_name, user_path(friend) %></i> </h2>
+    </div>
+
+    
+<% end %>
+
+
+<% if friends.include?(@user) %>
+    You and <%= @user.first_name %> are friends.
+<br> <br>
+<% elsif sent_requests.include?(@user)%>
+    Friend Request Sent
+<br> <br>
+<% elsif received_requests.include?(@user) %>
+    <%= button_to 'Accept Friend Request', friendships_path(friend_request: find_request(@user)) %>
+    <%= button_to 'Reject Friend Request', friend_request_path(find_request(@user).id), method: 'delete' %>
+<br> <br>
+<% elsif @user != current_user %>
+    Would you like to request <%= @user.first_name %> to be your friend?
+    <%= button_to 'Request to be Friends', friend_requests_path(user_id: @user.id) %>
+<br> <br>
+<% end %>
+
+<%= @user.first_name%>'s Posts:
+<% if (current_user == @user) or (friends.include? @user) %>
+    <% if @posts.any? %>
+        <%= render 'posts/post', { posts: @posts, friends: @friends} %>
+    <% end %>
+<% end %>

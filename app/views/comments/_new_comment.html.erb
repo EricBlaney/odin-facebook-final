@@ -1,0 +1,7 @@
+<div>
+<%= form_for :comment, url: new_comment_path(post.id) do |f| %>
+    <%= f.hidden_field :post_id, value: post.id %>
+    <%= f.text_area :body, placeholder: "What would you like to comment?" %> <br>
+    <%= f.submit "Submit comment" %>
+<% end %>
+</div>
