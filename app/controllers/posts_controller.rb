@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     def create
         @post = current_user.posts.build(post_params)
         if @post.save
-            redirect_to request.referrer
+            redirect_to action: "index"
         else
             render :new
         end

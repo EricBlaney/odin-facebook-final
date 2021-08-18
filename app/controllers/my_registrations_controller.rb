@@ -1,10 +1,8 @@
 class MyRegistrationsController < Devise::RegistrationsController
     def create
         super
-        if @user.save
-            if @user.persisted? && @user.errors.empty?
-                UserMailer.with(user: @user).welcome_email.deliver
-            end
+        if @user.persisted?
+            UserMailer.welcome_email(@user).deliver
         end
     end
 end
